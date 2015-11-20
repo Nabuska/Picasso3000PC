@@ -29,12 +29,27 @@ public class ViewFrame extends JFrame {
         actualStrokes = Collections.synchronizedList(new ArrayList<>());
         dumbStrokes = Collections.synchronizedList(new ArrayList<>());
         
-        JButton calibrateButton = new JButton("Calibrate");
-        calibrateButton.addActionListener(e -> controller.onCalibrateButtonClick());
-        JButton readyButton = new JButton("Ready");
-        readyButton.addActionListener(e -> controller.onReadyButtonClick());
+        JButton calibrateButton = new JButton("Kalibroi");
+        calibrateButton.addActionListener(e -> {
+            controller.onCalibrateButtonClick();
+            JOptionPane.showMessageDialog(null, "Aseta robotti alkuasentoon");
+            controller.onCalibrateDoneClick();
+        });
+        JButton exitStage = new JButton("Siirry paperilta");
+
+        exitStage.addActionListener(e -> {
+            controller.onExitStageCommandClick();
+            JOptionPane.showMessageDialog(null, "Piirtäminen valmis");
+            actualStrokes.clear();
+            dumbStrokes.clear();
+            prepareForNextStroke();
+            controller.onCalibrateButtonClick();
+            JOptionPane.showMessageDialog(null, "Aseta robotti alkuasentoon");
+            controller.onCalibrateDoneClick();
+
+        });
         add(calibrateButton, BorderLayout.LINE_END);
-        add(readyButton, BorderLayout.LINE_START);
+        add(exitStage, BorderLayout.LINE_START);
         
         initializeDrawPanel();
         add(drawPanel, BorderLayout.SOUTH);

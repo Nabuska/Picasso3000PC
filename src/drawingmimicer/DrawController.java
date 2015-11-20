@@ -67,8 +67,13 @@ public class DrawController {
         output.sendCalibrateCommand();
     }
 
-    public void onReadyButtonClick() {
+    public void onCalibrateDoneClick() {
         System.out.println("all done");
-        output.sendAllDoneCommand();
+        output.sendCalibrateDoneCommand();
+    }
+
+    public void onExitStageCommandClick() {
+        System.out.println("exit stage");
+        output.sendExitStageCommand();
     }
 }

@@ -53,24 +53,18 @@ public class OutputStreamManager {
         }
         else
             System.out.println("optObjOut empty");
-        /*optObjOut.ifPresent(o -> {
-            try {
-                while(!strokes.isEmpty()) {
-                    sendPoints.accept(o);
-                    System.out.println(strokes.peekFirst().get(0));
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });*/
     }
 
     public void sendCalibrateCommand(){
-        sendDumbStroke(Arrays.asList(new SmartPoint(-1, -1))); //list with negative Point
+        sendDumbStroke(Arrays.asList(new Point(-5, -5)));
     }
 
-    public void sendAllDoneCommand(){
-        sendDumbStroke(new ArrayList<>()); //Empty list
+    public void sendCalibrateDoneCommand(){
+        sendDumbStroke(Arrays.asList(new Point(-1,-1)));
+    }
+
+    public void sendExitStageCommand() {
+        sendDumbStroke(Arrays.asList(new Point(-20,-20)));
     }
 
     private void initialize() {
