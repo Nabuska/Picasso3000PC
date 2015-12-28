@@ -1,0 +1,3 @@
+# Picasso3000PC
+
+AmmatillisestiSuuntaavaProjekti
