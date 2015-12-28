@@ -27,22 +27,26 @@ public class DumberController extends Thread {
         }
     }
 
+    /**I called every time when mouse is dragged on the screen*/
     public void addPoint(SmartPoint p){
         if(!drawing)
-            setDrawState(true);
-        System.out.println(p);
+            notifyWaitingThread();
         dumber.addPoint(p);
     }
 
+
+    /**is called when mouse exits the screen or mouse button is released*/
     public void pauseUpdating(){
         drawing = false;
     }
 
-    private synchronized void setDrawState(boolean drawing) {
-        this.drawing = drawing;
+
+    private synchronized void notifyWaitingThread() {
+        this.drawing = true;
         notifyAll();
     }
 
+    /**refreshDumbLines is called 10 times / sec when boolean value 'drawing' is true*/
     private void refreshDumbLines() {
         Optional<SmartPoint> limitPoint = Optional.empty();
         while (drawing) {
@@ -54,11 +58,13 @@ public class DumberController extends Thread {
         finalizeStrokeEnd();
     }
 
+    /**is called ones when value 'drawing' is set to false*/
     private void finalizeStrokeEnd(){
         List<SmartPoint> dumbLines = dumber.getDumbLinesWithForcedEnding();
         controller.onDumbLinesUpdate(dumbLines, true);
     }
 
+    /**is called after boolean value 'drawing' is set to false and finilizeStrokeEnd method is performed*/
     private synchronized void waitForWakeup(){
         try {
             while (!drawing)

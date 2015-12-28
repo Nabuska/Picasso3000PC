@@ -15,6 +15,8 @@ public class SmartPoint extends Point {
         this.x = p.x; this.y = p.y;
     }
 
+
+    /**returns 'this' points distance from a line that goes between lineStart and lineEnd*/
     public double distanceFromLine(Point lineStart, Point lineEnd){
         double distance;
         if(this.equals(lineStart) || this.equals(lineEnd))

@@ -1,21 +1,20 @@
 package drawingmimicer;
 
 import drawingmimicer.Utils.IOConsumer;
-import drawingmimicer.Utils.SmartPoint;
 
 import java.awt.*;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.*;
 import java.util.List;
 import java.util.concurrent.ConcurrentLinkedDeque;
-import java.util.stream.Collectors;
 
 /**
  * Created by WinNabuska on 27.10.2015.
  */
+
+/**OutputStreamManager sends point data to EV3 robot*/
 public class OutputStreamManager {
 
     private Optional<ObjectOutputStream> optObjOut;
@@ -31,17 +30,15 @@ public class OutputStreamManager {
 
     public void sendDumbStroke(List<Point> stroke){
         List <Point> pointsList = new ArrayList<>();
+
         for(Point p: stroke){
             if (pointsList.isEmpty() || !pointsList.get(pointsList.size()-1).equals(p)) {
-                System.out.println("add");
-                    pointsList.add(new Point(p.x, p.y));
+                pointsList.add(new Point(p.x,p.y));
             }
         }
-
         strokes.add(/*stroke.stream().map(p -> new Point(p.x,p.y)).collect(Collectors.toList())*/pointsList);
         if(optObjOut.isPresent()){
             while(!strokes.isEmpty()){
-                //System.out.println("send " + strokes.peekFirst().get(0));
                 try {
                     List<Point> pList = strokes.pollFirst();
                     optObjOut.get().writeObject(pList);

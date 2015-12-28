@@ -6,6 +6,7 @@ import java.util.Optional;
 /**
  * Created by WinNabuska on 27.10.2015.
  */
+
 public class QuickList<E> extends ArrayList<E>{
 
     public Optional<E> last(){

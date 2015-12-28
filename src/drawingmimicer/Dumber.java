@@ -12,9 +12,11 @@ import java.util.concurrent.CopyOnWriteArrayList;
  */
 public class Dumber {
 
+    /**Dumber produces a dumbed down point data of the original drawing double value 'accuracy' determines the max
+     * offset compared to the original drawing*/
+
     private double accuracy;
     private List<SmartPoint> pointBuffer;
-    private int lCount = 0;
 
     public Dumber(double accuracy) {
         pointBuffer = new CopyOnWriteArrayList<>();
@@ -23,6 +25,10 @@ public class Dumber {
 
     public void addPoint(SmartPoint p){
         pointBuffer.add(p);
+    }
+
+    public void setAccuracy(int accuracy){
+        this.accuracy = accuracy;
     }
 
     public List<SmartPoint> getDumbLines(SmartPoint firstOffsetPoint){
@@ -67,45 +73,4 @@ public class Dumber {
         }
         return limitPoint;
     }
-
-    /*public double calculatePointOffsetFromLine(Point from, Point to, Point between){
-        if(to.equals(between) || to.equals(from)) {
-            return 0;
-        }
-        else{
-            double startToEndDeltaX = to.getX()-from.getX();
-            double startToEndDeltaY = to.getY()-from.getY();
-            double startToEndAngle = Math.atan(startToEndDeltaX / startToEndDeltaY);
-            double startToBetweenDeltaX = between.getX() - from.getX();
-            double startToBetweenDeltaY = between.getY() - from.getY();
-            double startBetweenAngle = Math.atan(startToBetweenDeltaX / startToBetweenDeltaY); //TODO swap params?
-            double offsetAngle = startToEndAngle-startBetweenAngle;
-            double startToBetweenDistance = Math.sqrt(Math.pow(startToBetweenDeltaX,2) + Math.pow(startToBetweenDeltaY,2));
-            double distanceFromLine = Math.sin(offsetAngle)*startToBetweenDistance;
-
-            return distanceFromLine;
-        }
-    }
-
-    public double loopOffset(Point from, Point to, Point between){
-        double startEnd = from.distance(to);
-        double startBetween = from.distance(between);
-        if(startEnd<startBetween){
-            return between.distance(to);
-        }
-        else{
-            return 0;
-        }
-    }*/
-
-    /*//List<SmartPoint> points = getDumbLines();
-    synchronized(pointBuffer){
-        if(pointBuffer.size()>0){
-            if(points.size()==0)
-                points.add(pointBuffer.get(0));
-            points.add(pointBuffer.get(pointBuffer.size()-1));
-            pointBuffer.clear();
-        }
-    }
-    return points;*/
 }

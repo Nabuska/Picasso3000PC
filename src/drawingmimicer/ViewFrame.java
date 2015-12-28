@@ -18,8 +18,9 @@ import static java.lang.Thread.sleep;
 public class ViewFrame extends JFrame {
 
     private JPanel drawPanel;
-    public final static int PANEL_WIDTH = 520;
-    public final static int PANEL_HEIGHT = 700;
+    public final static float SIZE_MULTIPLIER = 1.7f;
+    public final static int PANEL_WIDTH = (int)Math.round(740*SIZE_MULTIPLIER);
+    public final static int PANEL_HEIGHT = (int)Math.round(550*SIZE_MULTIPLIER);
     private List<List<Point>> actualStrokes;
     private List<List<SmartPoint>> dumbStrokes;
     private DrawController controller;
